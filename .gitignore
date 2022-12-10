@@ -25,6 +25,3 @@ pnpm-debug.log*
 
 # Vitest
 test-report/
-
-# stryker temp files
-.stryker-tmp

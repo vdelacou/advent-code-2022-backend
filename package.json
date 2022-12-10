@@ -4,7 +4,6 @@
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "test:mutation": "npx -y stryker@latest run",
     "test:coverage": "vitest run --coverage",
     "test:report": "vitest run --reporter=json --reporter=junit --outputFile.json=./test-report/report.json --outputFile.junit=./test-report/report.xml",
     "test:integration": "dotenv -e .env.test -- vitest run --config=./vitest-integration.config.ts,",
@@ -16,8 +15,6 @@
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
-    "@stryker-mutator/core": "^6.3.0",
-    "@stryker-mutator/typescript-checker": "^6.3.0",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "@vitest/coverage-c8": "^0.25.3",
