@@ -23,6 +23,8 @@ export const day1UseCase: UseCase<null, Day1Response, Day1Error, Day1UseCaseInje
   }
   const allCalories: number[] = getListofSum(day1StoragegetDay1PuzzleInputResult.data.elf);
   const max = Math.max(...allCalories);
+  const allCaloriesSorted = [...allCalories].sort((a, b) => b - a);
+  const topThree = allCaloriesSorted.slice(0, 3).reduce((accumulator, current) => accumulator + current, 0);
 
-  return presentSuccess({ mostCalories: max });
+  return presentSuccess({ mostCalories: max, topThree });
 };

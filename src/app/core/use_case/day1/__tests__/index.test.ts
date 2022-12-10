@@ -31,7 +31,7 @@ const testExpectedResults: TestExpectedResult<TestExpectedResultInput, TestExpec
       getDay1Puzzle: async () => createSuccess({ elf: [{ calories: [1] }] })
     },
     expected: {
-      response: { mostCalories: 1 }
+      response: { mostCalories: 1, topThree: 1 }
     }
   },
   {
@@ -40,7 +40,7 @@ const testExpectedResults: TestExpectedResult<TestExpectedResultInput, TestExpec
       getDay1Puzzle: async () => createSuccess({ elf: [{ calories: [1, 2] }] })
     },
     expected: {
-      response: { mostCalories: 3 }
+      response: { mostCalories: 3, topThree: 3 }
     }
   },
   {
@@ -49,7 +49,7 @@ const testExpectedResults: TestExpectedResult<TestExpectedResultInput, TestExpec
       getDay1Puzzle: async () => createSuccess({ elf: [{ calories: [1, 2] }, { calories: [3, 4] }] })
     },
     expected: {
-      response: { mostCalories: 7 }
+      response: { mostCalories: 7, topThree: 10 }
     }
   },
   {
@@ -66,7 +66,7 @@ const testExpectedResults: TestExpectedResult<TestExpectedResultInput, TestExpec
       })
     },
     expected: {
-      response: { mostCalories: 24_000 }
+      response: { mostCalories: 24_000, topThree: 45_000 }
     }
   }
 
