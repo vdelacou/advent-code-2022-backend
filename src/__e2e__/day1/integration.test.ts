@@ -19,6 +19,7 @@ describe('Day1 Integration', async () => {
 
     // assert
     expect(presenter.getPresentSuccessCallCounter()).toBe(1);
+    expect(presenter.getPresentFailCallCounter()).toBe(0);
 
     // Diplay Result
     logger.info('Result', presenter.getPresentSuccessCallInput());
