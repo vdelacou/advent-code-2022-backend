@@ -3,7 +3,7 @@ import { fakePresenter } from 'app-core/common/__tests__/fake-presenter';
 import { Day1Error } from 'app-core/port/api/day1/error';
 import { Day1Response } from 'app-core/port/api/day1/response';
 import { GetDay1PuzzleError, GetDay1PuzzleOuput } from 'app-core/port/infra/storage/day1/dto/get-day1-puzzle';
-import { makeSuccess, Result } from 'common/interface/result';
+import { makeFail, makeSuccess, Result } from 'common/interface/result';
 import { TestExpectedResult } from 'common/interface/test/test-expected-result';
 import { day1UseCase, Day1UseCaseInject } from '..';
 
@@ -23,6 +23,15 @@ const testExpectedResults: TestExpectedResult<TestExpectedResultInput, TestExpec
     },
     expected: {
       response: { mostCalories: 1 }
+    }
+  },
+  {
+    title: 'Return error when infra error',
+    input: {
+      getDay1Puzzle: async () => makeFail(null)
+    },
+    expected: {
+      error: { type: 'INFRA_ERROR' }
     }
   }
 ];
