@@ -17,6 +17,15 @@ interface TestExpectedResultExpected {
 
 const testExpectedResults: TestExpectedResult<TestExpectedResultInput, TestExpectedResultExpected>[] = [
   {
+    title: 'Return error when infra error',
+    input: {
+      getDay1Puzzle: async () => makeFail(null)
+    },
+    expected: {
+      error: { type: 'INFRA_ERROR' }
+    }
+  },
+  {
     title: 'Only one number and one elf',
     input: {
       getDay1Puzzle: async () => makeSuccess({ elf: [{ calories: [1] }] })
@@ -26,14 +35,41 @@ const testExpectedResults: TestExpectedResult<TestExpectedResultInput, TestExpec
     }
   },
   {
-    title: 'Return error when infra error',
+    title: 'Two number for one elf',
     input: {
-      getDay1Puzzle: async () => makeFail(null)
+      getDay1Puzzle: async () => makeSuccess({ elf: [{ calories: [1, 2] }] })
     },
     expected: {
-      error: { type: 'INFRA_ERROR' }
+      response: { mostCalories: 3 }
+    }
+  },
+  {
+    title: 'Two number for two elf, find max',
+    input: {
+      getDay1Puzzle: async () => makeSuccess({ elf: [{ calories: [1, 2] }, { calories: [3, 4] }] })
+    },
+    expected: {
+      response: { mostCalories: 7 }
+    }
+  },
+  {
+    title: 'Use the example from the puzzle',
+    input: {
+      getDay1Puzzle: async () => makeSuccess({
+        elf: [
+          { calories: [1000, 2000, 3000] },
+          { calories: [4000] },
+          { calories: [5000, 6000] },
+          { calories: [7000, 8000, 9000] },
+          { calories: [10_000] }
+        ]
+      })
+    },
+    expected: {
+      response: { mostCalories: 24_000 }
     }
   }
+
 ];
 
 describe('Day1 Test', async () => {
