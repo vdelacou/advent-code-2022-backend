@@ -1,4 +1,3 @@
-import { getFakeLogger } from 'app-core/common/__tests__/fake-logger';
 import { fakePresenter } from 'app-core/common/__tests__/fake-presenter';
 import { Day1Error } from 'app-core/port/api/day1/error';
 import { Day1Response } from 'app-core/port/api/day1/response';
@@ -10,7 +9,7 @@ describe('Day1 Integration', async () => {
   it('Get Result', async () => {
     // arrange
     const presenter = fakePresenter<Day1Response, Day1Error>();
-    const logger = getFakeLogger();
+    const logger = LOGGER;
     const inject: Day1UseCaseInject = {
       day1Storage: getDay1StorageImpl()
     };
@@ -22,6 +21,6 @@ describe('Day1 Integration', async () => {
     expect(presenter.getPresentSuccessCallInput()).toBeDefined();
 
     // Diplay Result
-    LOGGER.info('Result', presenter.getPresentSuccessCallInput());
+    logger.info('Result', presenter.getPresentSuccessCallInput());
   });
 });
