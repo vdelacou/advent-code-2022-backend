@@ -3,7 +3,7 @@ import { fakePresenter } from 'app-core/common/__tests__/fake-presenter';
 import { Day1Error } from 'app-core/port/api/day1/error';
 import { Day1Response } from 'app-core/port/api/day1/response';
 import { GetDay1PuzzleError, GetDay1PuzzleOuput } from 'app-core/port/infra/storage/day1/dto/get-day1-puzzle';
-import { makeFail, makeSuccess, Result } from 'common/interface/result';
+import { createFail, createSuccess, Result } from 'common/interface/result';
 import { TestExpectedResult } from 'common/interface/test/test-expected-result';
 import { day1UseCase, Day1UseCaseInject } from '..';
 
@@ -19,7 +19,7 @@ const testExpectedResults: TestExpectedResult<TestExpectedResultInput, TestExpec
   {
     title: 'Return error when infra error',
     input: {
-      getDay1Puzzle: async () => makeFail(null)
+      getDay1Puzzle: async () => createFail(null)
     },
     expected: {
       error: { type: 'INFRA_ERROR' }
@@ -28,7 +28,7 @@ const testExpectedResults: TestExpectedResult<TestExpectedResultInput, TestExpec
   {
     title: 'Only one number and one elf',
     input: {
-      getDay1Puzzle: async () => makeSuccess({ elf: [{ calories: [1] }] })
+      getDay1Puzzle: async () => createSuccess({ elf: [{ calories: [1] }] })
     },
     expected: {
       response: { mostCalories: 1 }
@@ -37,7 +37,7 @@ const testExpectedResults: TestExpectedResult<TestExpectedResultInput, TestExpec
   {
     title: 'Two number for one elf',
     input: {
-      getDay1Puzzle: async () => makeSuccess({ elf: [{ calories: [1, 2] }] })
+      getDay1Puzzle: async () => createSuccess({ elf: [{ calories: [1, 2] }] })
     },
     expected: {
       response: { mostCalories: 3 }
@@ -46,7 +46,7 @@ const testExpectedResults: TestExpectedResult<TestExpectedResultInput, TestExpec
   {
     title: 'Two number for two elf, find max',
     input: {
-      getDay1Puzzle: async () => makeSuccess({ elf: [{ calories: [1, 2] }, { calories: [3, 4] }] })
+      getDay1Puzzle: async () => createSuccess({ elf: [{ calories: [1, 2] }, { calories: [3, 4] }] })
     },
     expected: {
       response: { mostCalories: 7 }
@@ -55,7 +55,7 @@ const testExpectedResults: TestExpectedResult<TestExpectedResultInput, TestExpec
   {
     title: 'Use the example from the puzzle',
     input: {
-      getDay1Puzzle: async () => makeSuccess({
+      getDay1Puzzle: async () => createSuccess({
         elf: [
           { calories: [1000, 2000, 3000] },
           { calories: [4000] },

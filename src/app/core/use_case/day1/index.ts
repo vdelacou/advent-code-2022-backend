@@ -6,6 +6,8 @@ import { UseCase } from '../../common/use-case';
 
 const getSum = (calories: number[]): number => calories.reduce((accumulator, current) => accumulator + current, 0);
 
+const getListofSum = (elf: { calories: number[]; }[]): number[] => elf.map((value) => getSum(value.calories));
+
 export interface Day1UseCaseInject {
   day1Storage: Day1Storage;
 }
@@ -19,7 +21,7 @@ export const day1UseCase: UseCase<null, Day1Response, Day1Error, Day1UseCaseInje
   if (isFail(day1StoragegetDay1PuzzleInputResult)) {
     return presentFail({ type: 'INFRA_ERROR' });
   }
-  const allCalories: number[] = day1StoragegetDay1PuzzleInputResult.success.elf.map((value) => getSum(value.calories));
+  const allCalories: number[] = getListofSum(day1StoragegetDay1PuzzleInputResult.data.elf);
   const max = Math.max(...allCalories);
 
   return presentSuccess({ mostCalories: max });

@@ -6,7 +6,7 @@
     "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage",
     "test:report": "vitest run --reporter=json --reporter=junit --outputFile.json=./test-report/report.json --outputFile.junit=./test-report/report.xml",
-    "test:integration": "dotenv -e .env.test -- vitest run --config=./vitest-integration.config.ts,",
+    "test:integration": "dotenv -e .env.test -- vitest run --config=./vitest-integration.config.ts",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "format": "eslint ./src --ext .js,.jsx,.ts,.tsx --fix",
     "update-dependencies": "npx -y npm-check-updates@latest -u && npx -ws -y npm-check-updates@latest -u"

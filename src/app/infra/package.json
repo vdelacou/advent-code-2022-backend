@@ -5,6 +5,7 @@
     "@aws-lambda-powertools/logger": "^1.5.0",
     "@aws-lambda-powertools/tracer": "^1.5.0",
     "app-core": "file:../core",
+    "axios": "^1.2.1",
     "common": "file:../../common",
     "winston": "^3.8.2"
   },

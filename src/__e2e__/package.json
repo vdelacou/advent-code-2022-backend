@@ -2,7 +2,8 @@
   "private": true,
   "version": "0.0.0",
   "dependencies": {
-    "common": "file:../../common"
+    "app-core": "file:../app/core",
+    "app-infra": "file:../app/infra"
   },
   "scripts": {}
 }
