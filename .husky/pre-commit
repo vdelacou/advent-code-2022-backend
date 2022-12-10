@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm run lint
+
+branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+if [ $branch == main ]
+then
+    npm run test;
+fi

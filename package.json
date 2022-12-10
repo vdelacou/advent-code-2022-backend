@@ -1,0 +1,42 @@
+{
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:mutation": "npx -y stryker@latest run",
+    "test:coverage": "vitest run --coverage",
+    "test:report": "vitest run --reporter=json --reporter=junit --outputFile.json=./test-report/report.json --outputFile.junit=./test-report/report.xml",
+    "test:integration": "dotenv -e .env.test -- vitest run --config=./vitest-integration.config.ts,",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "format": "eslint ./src --ext .js,.jsx,.ts,.tsx --fix",
+    "update-dependencies": "npx -y npm-check-updates@latest -u && npx -ws -y npm-check-updates@latest -u"
+  },
+  "name": "advent-code-2022-backend",
+  "devDependencies": {
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
+    "@stryker-mutator/core": "^6.3.0",
+    "@stryker-mutator/typescript-checker": "^6.3.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@vitest/coverage-c8": "^0.25.3",
+    "dotenv-cli": "^6.0.0",
+    "eslint": "^8.29.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-import-resolver-typescript": "^3.5.2",
+    "eslint-plugin-etc": "^2.0.2",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-security": "^1.5.0",
+    "eslint-plugin-unicorn": "^45.0.1",
+    "husky": "^8.0.2",
+    "jest-extended": "^3.2.0",
+    "typescript": "^4.9.3",
+    "vitest": "^0.25.3"
+  },
+  "workspaces": [
+    "src/app/core",
+    "src/app/infra",
+    "src/common"
+  ]
+}

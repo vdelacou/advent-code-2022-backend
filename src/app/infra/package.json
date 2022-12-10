@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "version": "0.0.0",
+  "dependencies": {
+    "@aws-lambda-powertools/logger": "^1.5.0",
+    "@aws-lambda-powertools/tracer": "^1.5.0",
+    "app-core": "file:../core",
+    "common": "file:../../common",
+    "winston": "^3.8.2"
+  },
+  "scripts": {}
+}

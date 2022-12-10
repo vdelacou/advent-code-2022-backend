@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "mikestead.dotenv",
+    "snyk-security.snyk-vulnerability-scanner",
+    "sonarsource.sonarlint-vscode",
+    "vivaxy.vscode-conventional-commits",
+    "kisstkondoros.vscode-codemetrics",
+    "lacroixdavid1.vscode-format-context-menu"
+  ]
+}
