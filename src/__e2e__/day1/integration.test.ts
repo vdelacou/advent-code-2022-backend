@@ -18,7 +18,7 @@ describe('Day1 Integration', async () => {
     await day1UseCase(null, presenter, { ...inject, logger });
 
     // assert
-    expect(presenter.getPresentSuccessCallInput()).toBeDefined();
+    expect(presenter.getPresentSuccessCallCounter()).toBe(1);
 
     // Diplay Result
     logger.info('Result', presenter.getPresentSuccessCallInput());
