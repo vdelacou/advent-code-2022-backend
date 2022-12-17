@@ -37,6 +37,7 @@
   "workspaces": [
     "src/app/core",
     "src/app/infra",
-    "src/common"
+    "src/common",
+    "src/e2e"
   ]
 }
