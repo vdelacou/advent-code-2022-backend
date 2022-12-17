@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "packageManager": "npm",
+  "reporters": [
+    "html",
+    "clear-text",
+    "progress",
+    "json"
+  ],
+  "testRunner": "command",
+  "coverageAnalysis": "off",
+  "htmlReporter": {
+    "fileName": "./test-report/mutation/index.html"
+  },
+  "jsonReporter": {
+    "fileName": "./test-report/mutation/mutation.json"
+  },
+  "mutate": [
+    "src/app/core/use_case/**/*.ts?(x)",
+    "!src/app/**/?(*.)test.ts"
+  ]
+}
