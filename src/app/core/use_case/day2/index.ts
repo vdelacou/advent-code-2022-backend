@@ -26,8 +26,13 @@ const getResult = (ourHand: SHAPE, opponentHand: SHAPE): RESULT => {
 
 const getHandAccordingToResult = (opponentHand: SHAPE, expectedResult: RESULT): SHAPE => {
   const allShape: SHAPE[] = ['ROCK', 'PAPER', 'SCISSORS'];
-  const result = allShape.find((ourHand) => getResult(ourHand, opponentHand) === expectedResult);
-  return result || opponentHand;
+  const result = allShape.map((ourHand) => {
+    if (getResult(ourHand, opponentHand) === expectedResult) {
+      return ourHand;
+    }
+    return null;
+  }).flatMap((value) => (value ? [value] : []));
+  return result[0];
 };
 
 const getScoreResult = (result: RESULT): number => {
