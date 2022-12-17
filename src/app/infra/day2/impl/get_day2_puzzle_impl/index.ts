@@ -1,7 +1,7 @@
 import {
   GetDay2Part1PuzzleOuput, GetDay2Part2PuzzleOuput, GetDay2PuzzleError, RESULT, SHAPE
 } from 'app-core/port/infra/storage/day2/dto/get-day2-puzzle';
-import { Result } from 'common/interface/result';
+import { createFail, createSuccess, Result } from 'common/interface/result';
 
 const convertOpponentHand = (input: 'A' | 'B' | 'C'): SHAPE => {
   switch (input) {
@@ -55,39 +55,47 @@ const convertOurResult = (input: 'X' | 'Y' | 'Z'): RESULT => {
 };
 
 export const getDay2Part1PuzzleImpl = async (textFile: string): Promise<Result<GetDay2Part1PuzzleOuput, GetDay2PuzzleError>> => {
-  const lines = textFile.split('\n');
+  try {
+    const lines = textFile.split('\n');
 
-  const result = lines.map((line) => {
-    const splitLine = line.split(' ');
-    if (splitLine[0] && splitLine[1]) {
-      const opponentHand = convertOpponentHand(splitLine[0] as 'A' | 'B' | 'C');
-      const ourHand = convertOurHand(splitLine[1] as 'X' | 'Y' | 'Z');
-      return {
-        opponentHand,
-        ourHand
-      };
-    }
-    return null;
-  }).flatMap((value) => (value === null ? [] : [value]));
+    const result = lines.map((line) => {
+      const splitLine = line.split(' ');
+      if (splitLine[0] && splitLine[1]) {
+        const opponentHand = convertOpponentHand(splitLine[0] as 'A' | 'B' | 'C');
+        const ourHand = convertOurHand(splitLine[1] as 'X' | 'Y' | 'Z');
+        return {
+          opponentHand,
+          ourHand
+        };
+      }
+      return null;
+    }).flatMap((value) => (value === null ? [] : [value]));
 
-  return { data: { rounds: result } };
+    return createSuccess({ rounds: result });
+  } catch {
+    return createFail(null);
+  }
 };
 
 export const getDay2Part2PuzzleImpl = async (textFile: string): Promise<Result<GetDay2Part2PuzzleOuput, GetDay2PuzzleError>> => {
-  const lines = textFile.split('\n');
+  try {
+    const lines = textFile.split('\n');
 
-  const result = lines.map((line) => {
-    const splitLine = line.split(' ');
-    if (splitLine[0] && splitLine[1]) {
-      const opponentHand = convertOpponentHand(splitLine[0] as 'A' | 'B' | 'C');
-      const resultHand = convertOurResult(splitLine[1] as 'X' | 'Y' | 'Z');
-      return {
-        opponentHand,
-        result: resultHand
-      };
-    }
-    return null;
-  }).flatMap((value) => (value === null ? [] : [value]));
+    const result = lines.map((line) => {
+      const splitLine = line.split(' ');
+      if (splitLine[0] && splitLine[1]) {
+        const opponentHand = convertOpponentHand(splitLine[0] as 'A' | 'B' | 'C');
+        const resultHand = convertOurResult(splitLine[1] as 'X' | 'Y' | 'Z');
+        return {
+          opponentHand,
+          result: resultHand
+        };
+      }
+      return null;
+    }).flatMap((value) => (value === null ? [] : [value]));
 
-  return { data: { rounds: result } };
+    return createSuccess({ rounds: result });
+  } catch {
+    return createFail(null);
+  }
 };
