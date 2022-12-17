@@ -35,11 +35,9 @@ const getScoreShapeSelected = (shapeSelected: SHAPE): number => {
     case 'PAPER': {
       return 2;
     }
-    case 'SCISSORS': {
-      return 3;
-    }
+    // SCISSORS
     default: {
-      throw new Error('Invalid shape');
+      return 3;
     }
   }
 };
@@ -74,11 +72,9 @@ const getScoreResult = (result: RESULT): number => {
     case 'LOOSE': {
       return 0;
     }
-    case 'DRAW': {
-      return 3;
-    }
+    // DRAW
     default: {
-      throw new Error('Invalid result');
+      return 3;
     }
   }
 };

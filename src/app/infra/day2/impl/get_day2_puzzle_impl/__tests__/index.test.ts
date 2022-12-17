@@ -15,6 +15,20 @@ interface TestPart1ExpectedResultExpected {
 
 const testPart1ExpectedResults: TestExpectedResult<TestExpectedResultInput, TestPart1ExpectedResultExpected>[] = [
   {
+    title: 'Letter doesnt Exist',
+    input: { textFile: readFileSync(`${dirname(fileURLToPath(import.meta.url))}/data/wrong_first_letter.txt`, 'utf8') },
+    expected: {
+      error: null
+    }
+  },
+  {
+    title: 'Letter doesnt Exist',
+    input: { textFile: readFileSync(`${dirname(fileURLToPath(import.meta.url))}/data/wrong_second_letter.txt`, 'utf8') },
+    expected: {
+      error: null
+    }
+  },
+  {
     title: 'Only one elf one number',
     input: { textFile: readFileSync(`${dirname(fileURLToPath(import.meta.url))}/data/one_line.txt`, 'utf8') },
     expected: {
@@ -57,6 +71,20 @@ interface TestPart2ExpectedResultExpected {
 }
 
 const testPart2ExpectedResults: TestExpectedResult<TestExpectedResultInput, TestPart2ExpectedResultExpected>[] = [
+  {
+    title: 'Letter doesnt Exist',
+    input: { textFile: readFileSync(`${dirname(fileURLToPath(import.meta.url))}/data/wrong_first_letter.txt`, 'utf8') },
+    expected: {
+      error: null
+    }
+  },
+  {
+    title: 'Letter doesnt Exist',
+    input: { textFile: readFileSync(`${dirname(fileURLToPath(import.meta.url))}/data/wrong_second_letter.txt`, 'utf8') },
+    expected: {
+      error: null
+    }
+  },
   {
     title: 'Only one elf one number',
     input: { textFile: readFileSync(`${dirname(fileURLToPath(import.meta.url))}/data/one_line.txt`, 'utf8') },

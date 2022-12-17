@@ -60,6 +60,27 @@ const testExpectedResultsPart1: TestExpectedResult<TestExpectedResultInput, Test
     expected: {
       response: { score: 15 }
     }
+  },
+  {
+    title: 'All the cases',
+    input: {
+      getDay2Part1Puzzle: async () => createSuccess({
+        rounds: [
+          { opponentHand: 'ROCK', ourHand: 'ROCK' },
+          { opponentHand: 'ROCK', ourHand: 'SCISSORS' },
+          { opponentHand: 'ROCK', ourHand: 'PAPER' },
+          { opponentHand: 'SCISSORS', ourHand: 'ROCK' },
+          { opponentHand: 'SCISSORS', ourHand: 'SCISSORS' },
+          { opponentHand: 'SCISSORS', ourHand: 'PAPER' },
+          { opponentHand: 'PAPER', ourHand: 'ROCK' },
+          { opponentHand: 'PAPER', ourHand: 'SCISSORS' },
+          { opponentHand: 'PAPER', ourHand: 'PAPER' }
+        ]
+      })
+    },
+    expected: {
+      response: { score: 45 }
+    }
   }
 ];
 
@@ -158,6 +179,27 @@ const testExpectedResultsPart2: TestExpectedResult<TestPart2ExpectedResultInput,
     },
     expected: {
       response: { score: 12 }
+    }
+  },
+  {
+    title: 'All Possibilities',
+    input: {
+      getDay2Part2Puzzle: async () => createSuccess({
+        rounds: [
+          { opponentHand: 'ROCK', result: 'WIN' },
+          { opponentHand: 'ROCK', result: 'DRAW' },
+          { opponentHand: 'ROCK', result: 'LOOSE' },
+          { opponentHand: 'SCISSORS', result: 'WIN' },
+          { opponentHand: 'SCISSORS', result: 'DRAW' },
+          { opponentHand: 'SCISSORS', result: 'LOOSE' },
+          { opponentHand: 'PAPER', result: 'WIN' },
+          { opponentHand: 'PAPER', result: 'DRAW' },
+          { opponentHand: 'PAPER', result: 'LOOSE' }
+        ]
+      })
+    },
+    expected: {
+      response: { score: 45 }
     }
   }
 ];
