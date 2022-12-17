@@ -5,78 +5,34 @@ import { RESULT, SHAPE } from 'app-core/port/infra/storage/day2/dto/get-day2-puz
 import { isFail } from 'common/interface/result';
 import { UseCase } from '../../common/use-case';
 
-const getHandAccordingToResult = (opponentHand: SHAPE, expectedResult: RESULT): SHAPE => {
-  if (opponentHand === 'PAPER' && expectedResult === 'WIN') {
-    return 'SCISSORS';
-  }
-  if (opponentHand === 'PAPER' && expectedResult === 'LOOSE') {
-    return 'ROCK';
-  }
-  if (opponentHand === 'ROCK' && expectedResult === 'WIN') {
-    return 'PAPER';
-  }
-  if (opponentHand === 'ROCK' && expectedResult === 'LOOSE') {
-    return 'SCISSORS';
-  }
-  if (opponentHand === 'SCISSORS' && expectedResult === 'WIN') {
-    return 'ROCK';
-  }
-  if (opponentHand === 'SCISSORS' && expectedResult === 'LOOSE') {
-    return 'PAPER';
-  }
-  return opponentHand;
-};
-
 const getScoreShapeSelected = (shapeSelected: SHAPE): number => {
-  switch (shapeSelected) {
-    case 'ROCK': {
-      return 1;
-    }
-    case 'PAPER': {
-      return 2;
-    }
-    // SCISSORS
-    default: {
-      return 3;
-    }
-  }
+  const score = new Map<SHAPE, number>([['ROCK', 1], ['PAPER', 2]]);
+  return score.get(shapeSelected) || 3;
 };
 
 const getResult = (ourHand: SHAPE, opponentHand: SHAPE): RESULT => {
-  if (ourHand === 'PAPER' && opponentHand === 'ROCK') {
-    return 'WIN';
+  if (ourHand === opponentHand) {
+    return 'DRAW';
   }
-  if (ourHand === 'PAPER' && opponentHand === 'SCISSORS') {
-    return 'LOOSE';
-  }
-  if (ourHand === 'ROCK' && opponentHand === 'SCISSORS') {
-    return 'WIN';
-  }
-  if (ourHand === 'ROCK' && opponentHand === 'PAPER') {
-    return 'LOOSE';
-  }
-  if (ourHand === 'SCISSORS' && opponentHand === 'PAPER') {
-    return 'WIN';
-  }
-  if (ourHand === 'SCISSORS' && opponentHand === 'ROCK') {
-    return 'LOOSE';
-  }
-  return 'DRAW';
+  const resultWin = new Map<SHAPE, SHAPE>(
+    [
+      ['PAPER', 'ROCK'],
+      ['ROCK', 'SCISSORS'],
+      ['SCISSORS', 'PAPER']
+    ]
+  );
+  return resultWin.get(ourHand) === opponentHand ? 'WIN' : 'LOOSE';
+};
+
+const getHandAccordingToResult = (opponentHand: SHAPE, expectedResult: RESULT): SHAPE => {
+  const allShape: SHAPE[] = ['ROCK', 'PAPER', 'SCISSORS'];
+  const result = allShape.find((ourHand) => getResult(ourHand, opponentHand) === expectedResult);
+  return result || opponentHand;
 };
 
 const getScoreResult = (result: RESULT): number => {
-  switch (result) {
-    case 'WIN': {
-      return 6;
-    }
-    case 'LOOSE': {
-      return 0;
-    }
-    // DRAW
-    default: {
-      return 3;
-    }
-  }
+  const score = new Map<RESULT, number>([['WIN', 6], ['DRAW', 3]]);
+  return score.get(result) || 0;
 };
 
 export interface Day2UseCaseInject {
@@ -92,7 +48,6 @@ export const day2UseCasePart1: UseCase<null, Day2Response, Day2Error, Day2UseCas
   if (isFail(day2StoragegetDay2PuzzleInputResult)) {
     return presentFail({ type: 'INFRA_ERROR' });
   }
-
   const scoreList = day2StoragegetDay2PuzzleInputResult.data.rounds.map((round) => {
     const scoreShapeSelected = getScoreShapeSelected(round.ourHand);
     const result = getResult(round.ourHand, round.opponentHand);
