@@ -16,4 +16,18 @@ export interface GetDay3Part1PuzzleOuput {
   }[]
 }
 
+export interface GetDay3Part2PuzzleOuput {
+  groups: {
+    firstRuckSack: {
+      itemName: Character;
+    }[],
+    secondRuckSack: {
+      itemName: Character;
+    }[],
+    thirdRuckSack: {
+      itemName: Character;
+    }[]
+  }[]
+}
+
 export type GetDay3PuzzleError = null

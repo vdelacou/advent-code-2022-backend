@@ -2,10 +2,10 @@ import { getFakeLogger } from 'app-core/common/__tests__/fake-logger';
 import { fakePresenter } from 'app-core/common/__tests__/fake-presenter';
 import { Day3Error } from 'app-core/port/api/day3/error';
 import { Day3Response } from 'app-core/port/api/day3/response';
-import { GetDay3Part1PuzzleOuput, GetDay3PuzzleError } from 'app-core/port/infra/storage/day3/dto/get-input-puzzle';
+import { GetDay3Part1PuzzleOuput, GetDay3Part2PuzzleOuput, GetDay3PuzzleError } from 'app-core/port/infra/storage/day3/dto/get-input-puzzle';
 import { createFail, createSuccess, Result } from 'common/interface/result';
 import { TestExpectedResult } from 'common/interface/test/test-expected-result';
-import { Day3UseCaseInject, day3UseCasePart1 } from '..';
+import { Day3UseCaseInject, day3UseCasePart1, day3UseCasePart2 } from '..';
 
 interface TestExpectedResultInput {
   getDay3Part1Puzzle: () => Promise<Result<GetDay3Part1PuzzleOuput, GetDay3PuzzleError>>;
@@ -253,7 +253,6 @@ const testExpectedResultsPart1: TestExpectedResult<TestExpectedResultInput, Test
       response: { sumPriority: 157 }
     }
   }
-
 ];
 
 describe('Day3 Test Part 1', async () => {
@@ -262,10 +261,132 @@ describe('Day3 Test Part 1', async () => {
     const { input, expected } = testExpectedResult;
     const presenter = fakePresenter<Day3Response, Day3Error>();
     const logger = getFakeLogger();
-    const inject: Day3UseCaseInject = { day3Storage: { getDay3Part1Puzzle: input.getDay3Part1Puzzle } };
+    const inject: Day3UseCaseInject = { day3Storage: { getDay3Part1Puzzle: input.getDay3Part1Puzzle, getDay3Part2Puzzle: async () => createFail(null) } };
 
     // act
     await day3UseCasePart1(null, presenter, { ...inject, logger });
+
+    // assert
+    const { response, error } = expected;
+    expect(presenter.getPresentSuccessCallInput()).toStrictEqual(response);
+    expect(presenter.getPresentFailCallInput()).toStrictEqual(error);
+  });
+});
+
+interface TestPart2ExpectedResultInput {
+  getDay3Part2Puzzle: () => Promise<Result<GetDay3Part2PuzzleOuput, GetDay3PuzzleError>>;
+}
+interface TestExpectedResultExpected {
+  response?: Day3Response;
+  error?: Day3Error;
+}
+
+const testExpectedResultsPart2: TestExpectedResult<TestPart2ExpectedResultInput, TestExpectedResultExpected>[] = [
+  {
+    title: 'Return error when infra error',
+    input: {
+      getDay3Part2Puzzle: async () => createFail(null)
+    },
+    expected: {
+      error: { type: 'INFRA_ERROR' }
+    }
+  },
+  {
+    title: 'Only one item different on each group',
+    input: {
+      getDay3Part2Puzzle: async () => createSuccess({
+        groups: [{
+          firstRuckSack: [{ itemName: 'a' }],
+          secondRuckSack: [{ itemName: 'b' }],
+          thirdRuckSack: [{ itemName: 'c' }]
+        }]
+      })
+    },
+    expected: {
+      response: { sumPriority: 0 }
+    }
+  },
+  {
+    title: 'Two item same different on each group',
+    input: {
+      getDay3Part2Puzzle: async () => createSuccess({
+        groups: [{
+          firstRuckSack: [{ itemName: 'a' }],
+          secondRuckSack: [{ itemName: 'a' }],
+          thirdRuckSack: [{ itemName: 'c' }]
+        }]
+      })
+    },
+    expected: {
+      response: { sumPriority: 0 }
+    }
+  },
+  {
+    title: 'Same as example',
+    input: {
+      getDay3Part2Puzzle: async () => createSuccess({
+        groups: [{
+          firstRuckSack: [
+            { itemName: 'v' }, { itemName: 'J' }, { itemName: 'r' }, { itemName: 'w' }, { itemName: 'p' }, { itemName: 'W' },
+            { itemName: 't' }, { itemName: 'w' }, { itemName: 'J' }, { itemName: 'g' }, { itemName: 'W' }, { itemName: 'r' },
+            { itemName: 'h' }, { itemName: 'c' }, { itemName: 's' }, { itemName: 'F' }, { itemName: 'M' }, { itemName: 'M' },
+            { itemName: 'f' }, { itemName: 'F' }, { itemName: 'F' }, { itemName: 'h' }, { itemName: 'F' }, { itemName: 'p' }
+          ],
+          secondRuckSack: [
+            { itemName: 'j' }, { itemName: 'q' }, { itemName: 'H' }, { itemName: 'R' }, { itemName: 'N' }, { itemName: 'q' },
+            { itemName: 'R' }, { itemName: 'j' }, { itemName: 'q' }, { itemName: 'z' }, { itemName: 'j' }, { itemName: 'G' },
+            { itemName: 'D' }, { itemName: 'L' }, { itemName: 'G' }, { itemName: 'L' },
+            { itemName: 'r' }, { itemName: 's' }, { itemName: 'F' }, { itemName: 'M' }, { itemName: 'f' }, { itemName: 'F' },
+            { itemName: 'Z' }, { itemName: 'S' }, { itemName: 'r' }, { itemName: 'L' }, { itemName: 'r' }, { itemName: 'F' },
+            { itemName: 'Z' }, { itemName: 's' }, { itemName: 'S' }, { itemName: 'L' }
+          ],
+          thirdRuckSack: [
+            { itemName: 'P' }, { itemName: 'm' }, { itemName: 'm' }, { itemName: 'd' }, { itemName: 'z' }, { itemName: 'q' },
+            { itemName: 'P' }, { itemName: 'r' }, { itemName: 'V' },
+            { itemName: 'v' }, { itemName: 'P' }, { itemName: 'w' }, { itemName: 'w' }, { itemName: 'T' }, { itemName: 'W' },
+            { itemName: 'B' }, { itemName: 'w' }, { itemName: 'g' }
+          ]
+        },
+        {
+          firstRuckSack: [
+            { itemName: 'w' }, { itemName: 'M' }, { itemName: 'q' }, { itemName: 'v' }, { itemName: 'L' }, { itemName: 'M' },
+            { itemName: 'Z' }, { itemName: 'H' }, { itemName: 'h' }, { itemName: 'H' }, { itemName: 'M' }, { itemName: 'v' },
+            { itemName: 'w' }, { itemName: 'L' }, { itemName: 'H' },
+            { itemName: 'j' }, { itemName: 'b' }, { itemName: 'v' }, { itemName: 'c' }, { itemName: 'j' }, { itemName: 'n' },
+            { itemName: 'n' }, { itemName: 'S' }, { itemName: 'B' }, { itemName: 'n' }, { itemName: 'v' }, { itemName: 'T' },
+            { itemName: 'Q' }, { itemName: 'F' }, { itemName: 'n' }
+          ],
+          secondRuckSack: [
+            { itemName: 't' }, { itemName: 't' }, { itemName: 'g' }, { itemName: 'J' }, { itemName: 't' }, { itemName: 'R' },
+            { itemName: 'G' }, { itemName: 'J' },
+            { itemName: 'Q' }, { itemName: 'c' }, { itemName: 't' }, { itemName: 'T' }, { itemName: 'Z' }, { itemName: 't' },
+            { itemName: 'Z' }, { itemName: 'T' }
+          ],
+          thirdRuckSack: [
+            { itemName: 'C' }, { itemName: 'r' }, { itemName: 'Z' }, { itemName: 's' }, { itemName: 'J' }, { itemName: 's' },
+            { itemName: 'P' }, { itemName: 'P' }, { itemName: 'Z' }, { itemName: 's' }, { itemName: 'G' }, { itemName: 'z' },
+            { itemName: 'w' }, { itemName: 'w' }, { itemName: 's' }, { itemName: 'L' }, { itemName: 'w' }, { itemName: 'L' },
+            { itemName: 'm' }, { itemName: 'p' }, { itemName: 'w' }, { itemName: 'M' }, { itemName: 'D' }, { itemName: 'w' }
+          ]
+        }]
+      })
+    },
+    expected: {
+      response: { sumPriority: 70 }
+    }
+  }
+];
+
+describe('Day3 Test Part 2', async () => {
+  it.each(testExpectedResultsPart2)('Day3 Part 2 with arguments %p', async (testExpectedResult) => {
+    // arrange
+    const { input, expected } = testExpectedResult;
+    const presenter = fakePresenter<Day3Response, Day3Error>();
+    const logger = getFakeLogger();
+    const inject: Day3UseCaseInject = { day3Storage: { getDay3Part1Puzzle: async () => createFail(null), getDay3Part2Puzzle: input.getDay3Part2Puzzle } };
+
+    // act
+    await day3UseCasePart2(null, presenter, { ...inject, logger });
 
     // assert
     const { response, error } = expected;

@@ -3,7 +3,10 @@ import {
 } from 'app-core/port/infra/storage/day2/dto/get-day2-puzzle';
 import { createFail, createSuccess, Result } from 'common/interface/result';
 
-const convertOpponentHand = (input: 'A' | 'B' | 'C'): SHAPE => {
+type FIRST_INPUT = 'A' | 'B' | 'C';
+type SECOND_INPUT = 'X' | 'Y' | 'Z';
+
+const convertOpponentHand = (input: FIRST_INPUT): SHAPE => {
   switch (input) {
     case 'A': {
       return 'ROCK';
@@ -20,7 +23,7 @@ const convertOpponentHand = (input: 'A' | 'B' | 'C'): SHAPE => {
   }
 };
 
-const convertOurHand = (input: 'X' | 'Y' | 'Z'): SHAPE => {
+const convertOurHand = (input: SECOND_INPUT): SHAPE => {
   switch (input) {
     case 'X': {
       return 'ROCK';
@@ -37,7 +40,7 @@ const convertOurHand = (input: 'X' | 'Y' | 'Z'): SHAPE => {
   }
 };
 
-const convertOurResult = (input: 'X' | 'Y' | 'Z'): RESULT => {
+const convertOurResult = (input: SECOND_INPUT): RESULT => {
   switch (input) {
     case 'X': {
       return 'LOOSE';
@@ -61,8 +64,8 @@ export const getDay2Part1PuzzleImpl = async (textFile: string): Promise<Result<G
     const result = lines.map((line) => {
       const splitLine = line.split(' ');
       if (splitLine[0] && splitLine[1]) {
-        const opponentHand = convertOpponentHand(splitLine[0] as 'A' | 'B' | 'C');
-        const ourHand = convertOurHand(splitLine[1] as 'X' | 'Y' | 'Z');
+        const opponentHand = convertOpponentHand(splitLine[0] as FIRST_INPUT);
+        const ourHand = convertOurHand(splitLine[1] as SECOND_INPUT);
         return {
           opponentHand,
           ourHand
@@ -84,8 +87,8 @@ export const getDay2Part2PuzzleImpl = async (textFile: string): Promise<Result<G
     const result = lines.map((line) => {
       const splitLine = line.split(' ');
       if (splitLine[0] && splitLine[1]) {
-        const opponentHand = convertOpponentHand(splitLine[0] as 'A' | 'B' | 'C');
-        const resultHand = convertOurResult(splitLine[1] as 'X' | 'Y' | 'Z');
+        const opponentHand = convertOpponentHand(splitLine[0] as FIRST_INPUT);
+        const resultHand = convertOurResult(splitLine[1] as SECOND_INPUT);
         return {
           opponentHand,
           result: resultHand
