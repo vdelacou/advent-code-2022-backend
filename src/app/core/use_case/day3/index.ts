@@ -48,7 +48,7 @@ export const day3UseCasePart1: UseCase<null, Day3Response, Day3Error, Day3UseCas
 
 export const day3UseCasePart2: UseCase<null, Day3Response, Day3Error, Day3UseCaseInject> = async (_request, presenter, inject) => {
   const { presentFail, presentSuccess } = presenter;
-  const { day3Storage, logger } = inject;
+  const { day3Storage } = inject;
 
   const day3StoragegetDay3PuzzleInputResult = await day3Storage.getDay3Part2Puzzle();
 
@@ -58,7 +58,6 @@ export const day3UseCasePart2: UseCase<null, Day3Response, Day3Error, Day3UseCas
 
   const { groups } = day3StoragegetDay3PuzzleInputResult.data;
 
-  logger.info('Number of groups', { groups: groups.length });
   const priorityList = groups.map((rucksack) => {
     const { firstRuckSack, secondRuckSack, thirdRuckSack } = rucksack;
 
