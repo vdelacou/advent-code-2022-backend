@@ -8,7 +8,7 @@ export interface Day5UseCaseInject {
   day5Storage: Day5Storage;
 }
 
-export const day5UseCasePart1: UseCase<null, Day5Response, Day5Error, Day5UseCaseInject> = async (_request, presenter, inject) => {
+export const day5UseCasePart2: UseCase<null, Day5Response, Day5Error, Day5UseCaseInject> = async (_request, presenter, inject) => {
   const { presentFail, presentSuccess } = presenter;
   const { day5Storage } = inject;
 
@@ -24,8 +24,9 @@ export const day5UseCasePart1: UseCase<null, Day5Response, Day5Error, Day5UseCas
     const findStackToMoveFrom = stacks.find((stack) => stack.number === move.fromIndex);
     const findStackToMoveTo = stacks.find((stack) => stack.number === move.toIndex);
     if (findStackToMoveFrom && findStackToMoveTo) {
+      const arrayIndexToMove = findStackToMoveFrom.crates.slice(0, move.numberToMove);
+      findStackToMoveTo.crates.unshift(...arrayIndexToMove);
       [...Array.from({ length: move.numberToMove }).keys()].forEach(() => {
-        findStackToMoveTo.crates.unshift(findStackToMoveFrom.crates[0]);
         findStackToMoveFrom.crates.shift();
       });
     }

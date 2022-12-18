@@ -8,7 +8,7 @@
     "json"
   ],
   "testRunner": "command",
-  "coverageAnalysis": "off",
+  "coverageAnalysis": "perTest",
   "htmlReporter": {
     "fileName": "./test-report/mutation/index.html"
   },
