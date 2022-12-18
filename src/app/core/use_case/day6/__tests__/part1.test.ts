@@ -33,7 +33,7 @@ const testExpectedResultsPart1: TestExpectedResult<TestExpectedResultInput, Test
       })
     },
     expected: {
-      response: { result: 7 }
+      response: { result: 7, resultPart2: 19 }
     }
   },
   {
@@ -44,7 +44,7 @@ const testExpectedResultsPart1: TestExpectedResult<TestExpectedResultInput, Test
       })
     },
     expected: {
-      response: { result: 5 }
+      response: { result: 5, resultPart2: 23 }
     }
   },
   {
@@ -55,7 +55,7 @@ const testExpectedResultsPart1: TestExpectedResult<TestExpectedResultInput, Test
       })
     },
     expected: {
-      response: { result: 6 }
+      response: { result: 6, resultPart2: 23 }
     }
   },
   {
@@ -66,7 +66,7 @@ const testExpectedResultsPart1: TestExpectedResult<TestExpectedResultInput, Test
       })
     },
     expected: {
-      response: { result: 10 }
+      response: { result: 10, resultPart2: 29 }
     }
   },
   {
@@ -77,7 +77,7 @@ const testExpectedResultsPart1: TestExpectedResult<TestExpectedResultInput, Test
       })
     },
     expected: {
-      response: { result: 11 }
+      response: { result: 11, resultPart2: 26 }
     }
   }
 ];

@@ -8,6 +8,19 @@ export interface Day6UseCaseInject {
   day6Storage: Day6Storage;
 }
 
+const findIndex = (arrayBuffer: string[], numberDifference: number): number => {
+  const nbrOfBuffer = arrayBuffer.length;
+  const markers = [...Array.from({ length: nbrOfBuffer }).keys()].map((index) => arrayBuffer.slice(index, index + numberDifference));
+  const index = markers.findIndex((marker) => {
+    const uniqueLetters = new Set(marker);
+    if (uniqueLetters.size === numberDifference) {
+      return true;
+    }
+    return false;
+  });
+  return index + numberDifference;
+};
+
 export const day6UseCasePart1: UseCase<null, Day6Response, Day6Error, Day6UseCaseInject> = async (_request, presenter, inject) => {
   const { presentFail, presentSuccess } = presenter;
   const { day6Storage } = inject;
@@ -21,18 +34,10 @@ export const day6UseCasePart1: UseCase<null, Day6Response, Day6Error, Day6UseCas
   const { buffer } = day6StoragegetDay6PuzzleInputResult.data;
 
   const arrayBuffer = [...buffer];
-  const nbrOfBuffer = arrayBuffer.length;
 
-  const markers = [...Array.from({ length: nbrOfBuffer }).keys()].map((index) => arrayBuffer.slice(index, index + 4));
+  const result = findIndex(arrayBuffer, 4);
 
-  const findIndex = markers.findIndex((marker) => {
-    const uniqueLetters = new Set(marker);
-    if (uniqueLetters.size === 4) {
-      return true;
-    }
-    return false;
-  });
-  const result = findIndex + 4;
+  const resultPart2 = findIndex(arrayBuffer, 14);
 
-  return presentSuccess({ result });
+  return presentSuccess({ result, resultPart2 });
 };
