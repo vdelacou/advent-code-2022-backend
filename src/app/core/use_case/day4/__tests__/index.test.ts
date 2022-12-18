@@ -153,76 +153,6 @@ const testExpectedResultsPart2: TestExpectedResult<TestExpectedResultInput, Test
     }
   },
   {
-    title: '2-3 No contains 4-5',
-    input: {
-      getDay4Part1Puzzle: async () => createSuccess({
-        pair: [{
-          firstElfAssignment: [2, 3],
-          secondElfAssignment: [4, 5]
-        }]
-      })
-    },
-    expected: {
-      response: { result: 0 }
-    }
-  },
-  {
-    title: '4-5 No contains 2-3',
-    input: {
-      getDay4Part1Puzzle: async () => createSuccess({
-        pair: [{
-          firstElfAssignment: [4, 5],
-          secondElfAssignment: [2, 3]
-        }]
-      })
-    },
-    expected: {
-      response: { result: 0 }
-    }
-  },
-  {
-    title: '2-8 contains 3-7',
-    input: {
-      getDay4Part1Puzzle: async () => createSuccess({
-        pair: [{
-          firstElfAssignment: [2, 3, 4, 5, 6, 7, 8],
-          secondElfAssignment: [3, 4, 5, 6, 7]
-        }]
-      })
-    },
-    expected: {
-      response: { result: 1 }
-    }
-  },
-  {
-    title: '6-6 contains 4-6',
-    input: {
-      getDay4Part1Puzzle: async () => createSuccess({
-        pair: [{
-          firstElfAssignment: [6],
-          secondElfAssignment: [4, 5, 6]
-        }]
-      })
-    },
-    expected: {
-      response: { result: 1 }
-    }
-  },
-  {
-    title: '5-7 contains 7-9',
-    input: {
-      getDay4Part1Puzzle: async () => createSuccess({
-        pair: [{
-          firstElfAssignment: [5, 6, 7],
-          secondElfAssignment: [7, 8, 9]
-        }]
-      })
-    },
-    expected: {
-      response: { result: 1 }
-    }
-  },
-  {
     title: 'example',
     input: {
       getDay4Part1Puzzle: async () => createSuccess({
@@ -250,42 +180,6 @@ const testExpectedResultsPart2: TestExpectedResult<TestExpectedResultInput, Test
           {
             firstElfAssignment: [2, 3, 4, 5, 6],
             secondElfAssignment: [4, 5, 6, 7, 8]
-          }
-        ]
-      })
-    },
-    expected: {
-      response: { result: 4 }
-    }
-  },
-  {
-    title: 'example',
-    input: {
-      getDay4Part1Puzzle: async () => createSuccess({
-        pair: [
-          {
-            firstElfAssignment: [2, 3, 4],
-            secondElfAssignment: [6, 7, 8]
-          },
-          {
-            firstElfAssignment: [2, 3],
-            secondElfAssignment: [4, 5]
-          },
-          {
-            firstElfAssignment: [5, 6, 7],
-            secondElfAssignment: [7, 8, 9]
-          },
-          {
-            firstElfAssignment: [2, 3, 4, 5, 6, 7, 8],
-            secondElfAssignment: [3, 4, 5, 6, 7]
-          },
-          {
-            firstElfAssignment: [4, 5, 6],
-            secondElfAssignment: [4, 5, 6]
-          },
-          {
-            firstElfAssignment: [4, 5, 6, 7, 8],
-            secondElfAssignment: [2, 3, 4, 5, 6]
           }
         ]
       })
