@@ -31,7 +31,6 @@ export const day5UseCasePart1: UseCase<null, Day5Response, Day5Error, Day5UseCas
     }
   });
 
-  // const result = JSON.stringify(stacks);
   const result = stacks.map((stack) => stack.crates[0]).join('');
 
   return presentSuccess({ result });
