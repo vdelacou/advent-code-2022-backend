@@ -56,7 +56,7 @@ const testPart1ExpectedResults: TestExpectedResult<TestExpectedResultInput, Test
     }
   },
   {
-    title: 'Example',
+    title: 'One line with one move',
     input: { textFile: readFileSync(`${dirname(fileURLToPath(import.meta.url))}/data/one_line_with_one_move.txt`, 'utf8') },
     expected: {
       response: {

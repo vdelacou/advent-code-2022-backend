@@ -46,22 +46,6 @@ export const getDay5Part1PuzzleImpl = async (textFile: string): Promise<Result<G
     return { number, crates };
   });
 
-  // const moves: { fromIndex: number; toIndex: number; numberToMove: number; }[] = [];
-
-  // move
-  // for (let lineIndex = indexLineWithStacksNumberIndex + 1; indexLineWithStacksNumberIndex <= Math.max(lines.length, indexLineWithStacksNumberIndex); lineIndex += 1) {
-  //   const line = lines.at(lineIndex) || '';
-  //   // const match = regexMove.exec(line) || [];
-  //   // if (match !== null) {
-  //   const move: { fromIndex: number; toIndex: number; numberToMove: number; } = {
-  //     fromIndex: 1,
-  //     toIndex: 2,
-  //     numberToMove: 3
-  //   };
-  //   moves.push(move);
-  //   // }
-  // }
-
   const moves = lines.map((line, index) => {
     if (index < indexLineWithStacksNumberIndex + 2) {
       return null;
